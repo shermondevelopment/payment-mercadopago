@@ -46,8 +46,20 @@ var id = "" + Date.now();
 });
 
 app.post('/noti', async (req, res) => {
-   console.log(req.query);
-   res.status(200).send('ok');
+   const { id } = req.params;
+   setTimeout(() => {
+    var filtro = {  
+        "order.id" : id
+    }
+    MercadoPago.payment.searh({
+        qs: filtro
+    }).then(data=> {
+        console.log(data);
+    }).catch(err=> {
+      console.log(err);
+    })
+   }, 2000);
+   return res.status(200).send('ok');
 });
 
 app.listen(process.env.PORT || 3002, () => console.log('running app'));
