@@ -51,7 +51,7 @@ app.post('/noti', async (req, res) => {
     var filtro = {  
         "order.id" : id
     }
-    MercadoPago.payment.searh({
+    MercadoPago.payment.search({
         qs: filtro
     }).then(data=> {
         console.log(data);
