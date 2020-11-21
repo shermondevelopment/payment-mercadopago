@@ -46,4 +46,4 @@ var id = "" + Date.now();
 });
 
 
-app.listen(8003, () => console.log('running app'));
+app.listen(process.env.PORT || 3002, () => console.log('running app'));
