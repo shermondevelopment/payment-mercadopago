@@ -45,5 +45,9 @@ var id = "" + Date.now();
   
 });
 
+app.post('/noti', async (req, res) => {
+   console.log(req.query);
+   res.status(200).send('ok');
+});
 
 app.listen(process.env.PORT || 3002, () => console.log('running app'));
