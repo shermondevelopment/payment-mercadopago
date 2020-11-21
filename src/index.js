@@ -45,7 +45,7 @@ var id = "" + Date.now();
   
 });
 
-app.post('/noti', async (req, res) => {
+app.post('/noti', (req, res) => {
    const { id } = req.params;
    setTimeout(() => {
     var filtro = {  
@@ -54,7 +54,12 @@ app.post('/noti', async (req, res) => {
     MercadoPago.payment.search({
         qs: filtro
     }).then(data=> {
-        console.log(data);
+        let pagamento = data.body.results[0];
+        if(pagamento !== undefined) {
+            console.log(pagamento);
+        } else {
+            console.log('pagamento invalido');
+        }
     }).catch(err=> {
       console.log(err);
     })
