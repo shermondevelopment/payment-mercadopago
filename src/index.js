@@ -56,7 +56,9 @@ var email = 'victor804.gt@gmail.com';
 
 app.post('/noti', (req, res) => {
    const { id } = req.params;
-   console.log(req.params, req.body);
+   setTimeout(()=>{
+       console.log(id);
+   }, 30000);
    setTimeout(() => {
     var filtro = {  
         "order.id" : id
