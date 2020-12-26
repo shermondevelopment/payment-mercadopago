@@ -55,7 +55,7 @@ var email = 'victor804.gt@gmail.com';
 });
 
 app.post('/noti', (req, res) => {
-   const { id } = req.params;
+   const { id } = req.query;
    console.log(req.query);
    setTimeout(() => {
     var filtro = {  
