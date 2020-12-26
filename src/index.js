@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('Olá Mundo');
 });
 
-app.get('/pagar/:id', async (req, res) => {
+app.get('/pagar', async (req, res) => {
     // pagamentos 
     // id // codigo // pagados // status
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
