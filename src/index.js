@@ -47,7 +47,7 @@ var id = uuidv4();
    }catch(err) {
        return res.send(err.message);
    }
-   console.log(pagamento);
+ 
   
 });
 
