@@ -56,7 +56,7 @@ var email = 'victor804.gt@gmail.com';
 
 app.post('/noti', (req, res) => {
    const { id } = req.query;
-   console.log(req.query);
+   console.log(id)
    setTimeout(() => {
     var filtro = {  
         "order.id" : id
@@ -64,10 +64,9 @@ app.post('/noti', (req, res) => {
     MercadoPago.payment.search({
         qs: filtro
     }).then(data=> {
-        // console.log(data);
         let traba = data.body.results[1];
         let pagamento = data.body.results[0];
-        console.log(traba);
+        console.log(pagamento);
         if(pagamento !== undefined) {
             console.log(pagamento.external_reference);
             console.log(pagamento.status);
@@ -77,7 +76,7 @@ app.post('/noti', (req, res) => {
     }).catch(err=> {
       console.log(err);
     })
-   }, 2000);
+   }, 20000);
    return res.status(200).send('ok');
 });
 
