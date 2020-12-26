@@ -3,6 +3,7 @@ const MercadoPago = require('mercadopago');
 const app = express();
 const { v4: uuidv4 } = require('uuid');
 const User = require('./models/users');
+const Payment = require('./models/payment');
 
 MercadoPago.configure({
     sandbox: true,
@@ -24,11 +25,12 @@ app.get('/pagar', async (req, res) => {
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
 var id = uuidv4();
+var email = 'victor804.gt@gmail.com';
 
    let dados = {
        items: [
            item = {
-               id: id,
+               id,
                title: 'Produto acesso',
                quantity:1,
                currency_id: 'BRL',
@@ -36,13 +38,14 @@ var id = uuidv4();
            }
        ],
        payer: {
-           email: 'victor804.gt@gmail.com'
+           email
        },
        external_reference:id
    }
 
    try {
         var pagamento = await MercadoPago.preferences.create(dados);
+        await Payment.create({id_payment: id, pagador:email});
         return res.redirect(pagamento.body.init_point);
    }catch(err) {
        return res.send(err.message);
@@ -53,6 +56,7 @@ var id = uuidv4();
 
 app.post('/noti', (req, res) => {
    const { id } = req.params;
+   console.log(id);
    setTimeout(() => {
     var filtro = {  
         "order.id" : id
