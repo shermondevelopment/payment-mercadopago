@@ -64,9 +64,10 @@ app.post('/noti', (req, res) => {
     MercadoPago.payment.search({
         qs: filtro
     }).then(data=> {
-        console.log(data);
-        console.log(pagamento);
+        // console.log(data);
+        let traba = data.body.results[1];
         let pagamento = data.body.results[0];
+        console.log(traba);
         if(pagamento !== undefined) {
             console.log(pagamento.external_reference);
             console.log(pagamento.status);
