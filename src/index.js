@@ -1,23 +1,29 @@
 const express = require('express');
 const MercadoPago = require('mercadopago');
 const app = express();
+const { v4: uuidv4 } = require('uuid');
+const User = require('./models/users');
 
 MercadoPago.configure({
     sandbox: true,
     access_token:'TEST-2500240343681877-112117-92415a6b3365dc88ac30048c7996f90f-269366342'
 });
 
+app.get('/user', async (req, res) => {
+    await User.create({name:'victor', email:'victor804.gt@gmail.com'});
+    return res.status(200).json({success: 'cadstrado'});
+});
+
 app.get('/', (req, res) => {
     res.send('Olá Mundo');
 });
 
-app.get('/pagar', async (req, res) => {
-
+app.get('/pagar/:id', async (req, res) => {
     // pagamentos 
     // id // codigo // pagados // status
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
-var id = "" + Date.now();
+var id = uuidv4();
 
    let dados = {
        items: [
