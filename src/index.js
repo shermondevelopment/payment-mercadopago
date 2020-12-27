@@ -26,6 +26,7 @@ app.get('/pagar/:id', async (req, res) => {
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
     const  users = await User.findOne({where: { id }});
+    console.log(users);
     var idUser = users.id;
     var email = users.email;
 
