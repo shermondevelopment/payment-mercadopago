@@ -75,8 +75,8 @@ app.post('/noti', (req, res) => {
                       return dados;
                    });
                     
-                   if(payment) {
-                       User.findByIdAndUpdate({ _id: payment.id_payment}, { payment:true }, {new:true}).then((stado) => {
+                   if(payment !== undefined) {
+                       User.findOneAndUpdate({ _id: payment.id_payment}, { payment:true }, {new:true}).then((stado) => {
                            console.log(stado);
                            console.log('atulizado');
                        });
