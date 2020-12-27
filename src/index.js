@@ -21,14 +21,13 @@ app.get('/', (req, res) => {
 
 app.get('/pagar/:id', async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     // pagamentos 
     // id // codigo // pagados // status
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
     const  users = await User.findById(id);
-    console.log(users);
-    var idUser = uuid();
+
+    var idUser = uuidv4();
     var email = users.email;
 
    let dados = {
@@ -52,7 +51,7 @@ app.get('/pagar/:id', async (req, res) => {
             var pagamento = await MercadoPago.preferences.create(dados);
         }
         
-        await Payment.create({id_payment: idUser, pagador:email});
+        await Payment.create({id_payment: id, pagador:email});
         return res.redirect(pagamento.body.init_point);
    }catch(err) {
        return res.send(err.message);

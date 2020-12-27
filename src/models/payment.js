@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const PaymentSchema = new mongoose.Schema({
     _id: { type: String, default: uuidv4 },
+    codigo: { type:String, required: true },
     id_payment: { type: String, required: true },
     pagador: { type: String, required: true, lowercase: true },
     status: { type: String, default:'Nada', },
