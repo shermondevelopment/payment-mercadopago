@@ -26,13 +26,13 @@ app.get('/pagar/:id', async (req, res) => {
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
     const  users = await User.findOne({where: { id }});
-    var id = users.id;
+    var idUser = users.id;
     var email = users.email;
 
    let dados = {
        items: [
            item = {
-               id,
+               id: idUser,
                title: 'Produto acesso',
                quantity:1,
                currency_id: 'BRL',
@@ -42,7 +42,7 @@ app.get('/pagar/:id', async (req, res) => {
        payer: {
            email
        },
-       external_reference:id
+       external_reference:idUser
    }
 
    try {
