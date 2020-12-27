@@ -74,7 +74,7 @@ app.post('/noti', (req, res) => {
                    let payment = Payment.findOneAndUpdate({codigo:  pagamento.external_reference }, { status:'approved' }, {new:true}).then((dados) => {
                       return dados;
                    });
-                       User.findOneAndUpdate({ id: payment.id_payment}, { payment:true }, {new:true}).then((stado) => {
+                       User.findOneAndUpdate({ _id: payment.id_payment}, { payment:true }, {new:true}).then((stado) => {
                            console.log(stado);
                            console.log('atulizado');
                        });
