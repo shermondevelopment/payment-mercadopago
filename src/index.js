@@ -78,7 +78,11 @@ app.post('/noti', (req, res) => {
                     //        console.log('atulizado');
                     //    });
                    }).then(info => {
-                       console.log(info);
+                      let id = info.id_payment;
+                        User.findOneAndUpdate({id}, { payment:true }, {new:true}).then((stado) => {
+                           console.log(stado);
+                           console.log('atulizado');
+                       });
                    });
                    
                    console.log('atualizado')
