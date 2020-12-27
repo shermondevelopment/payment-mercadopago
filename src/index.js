@@ -28,7 +28,7 @@ app.get('/pagar/:id', async (req, res) => {
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
     const  users = await User.findById(id);
     console.log(users);
-    var idUser = users.id;
+    var idUser = uuid();
     var email = users.email;
 
    let dados = {
@@ -75,13 +75,13 @@ app.post('/noti', async (req, res) => {
 
     let pagamento = pags.body.results[0];
     console.log(pagamento);
-    if(pagamento !== undefined) {
-        if(pagamento.status === 'approved') {
-            await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
-            await User.findByIdAndUpdate(id, { status:true });
-            console.log('pagamento approvado')
-        }
-    }
+    // if(pagamento !== undefined) {
+    //     if(pagamento.status === 'approved') {
+    //         await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
+    //         await User.findByIdAndUpdate(id, { status:true });
+    //         console.log('pagamento approvado')
+    //     }
+    // }
     // MercadoPago.payment.search({
     //     qs: filtro
     // }).then(data=> {
