@@ -11,7 +11,7 @@ MercadoPago.configure({
 });
 
 app.get('/user', async (req, res) => {
-    await User.create({name:'maria', email:'maria@yahoo.com'});
+    await User.create({name:'fulano', email:'fulano@yahoo.com'});
     return res.status(200).json({success: 'cadstrado'});
 });
 
@@ -85,43 +85,7 @@ app.post('/noti', (req, res) => {
         })
      }, 20000);
 
-//    setTimeout(async () => {
-//     var filtro = {  
-//         "order.id" : id
-//     }
-//     const pags = await MercadoPago.payment.search({
-//         qs: filtro
-//     })
 
-//     let pagamento = pags.body.results[0];
-//     console.log(pagamento);
-//     if(pagamento !== undefined) {
-//         if(pagamento.status === 'approved') {
-//             await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
-//             await User.findByIdAndUpdate(id, { status:true });
-//             console.log('pagamento approvado')
-//         }
-//     }
-//     MercadoPago.payment.search({
-//         qs: filtro
-//     }).then(data=> {
-//         let traba = data.body.results[1];
-//         let pagamento = data.body.results[0];
-//         console.log(traba);
-//         console.log(pagamento);
-//         if(pagamento !== undefined) {
-//             if(pagamento.status === 'approved') {
-//                 Payment.update({status: 'approved'}, { where: {id_payment: id} }).then((result) => {
-//                     console.log('atualizado');
-//                 })
-//             }
-//         } else {
-//             console.log('pagamento invalido');
-//         }
-//     }).catch(err=> {
-//       console.log(err);
-//     })
-//    }, 20000);
    return res.status(200).send('ok');
 });
 
