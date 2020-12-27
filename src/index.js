@@ -60,20 +60,29 @@ app.get('/pagar/:id', async (req, res) => {
   
 });
 
-app.post('/noti', async (req, res) => {
+app.post('/noti', (req, res) => {
    const { id } = req.query;
-   console.log(id)
-   setTimeout(async () => {
-    var filtro = {  
-        "order.id" : id
-    }
-    const pags = await MercadoPago.payment.search({
-        qs: filtro
-    });
 
+     setTimeout(() => {
+        let filtro = { "order.id" : id };
+        MercadoPago.payment.search({
+            qs: filtro
+        }).then( data  => {
+            let pagamento = data.body.results[0];
+            console.log(pagamento);
+        })
+     }, 20000);
 
-    let pagamento = pags.body.results[0];
-    console.log(pagamento);
+//    setTimeout(async () => {
+//     var filtro = {  
+//         "order.id" : id
+//     }
+//     const pags = await MercadoPago.payment.search({
+//         qs: filtro
+//     })
+
+//     let pagamento = pags.body.results[0];
+//     console.log(pagamento);
     // if(pagamento !== undefined) {
     //     if(pagamento.status === 'approved') {
     //         await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
