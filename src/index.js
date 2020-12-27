@@ -66,12 +66,13 @@ app.post('/noti', (req, res) => {
     }).then(data=> {
         let traba = data.body.results[1];
         let pagamento = data.body.results[0];
+        console.log(traba);
         console.log(pagamento);
         if(pagamento !== undefined) {
-            console.log(pagamento.external_reference);
-            console.log(pagamento.status);
             if(pagamento.status === 'approved') {
-                console.log('pagamento aprovado');
+                Payment.update({status: 'approved'}, { where: {id_payment: id} }).then((result) => {
+                    console.log('atualizado');
+                })
             }
         } else {
             console.log('pagamento invalido');
