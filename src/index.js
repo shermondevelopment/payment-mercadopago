@@ -11,7 +11,7 @@ MercadoPago.configure({
 });
 
 app.get('/user', async (req, res) => {
-    await User.create({name:'fernanda', email:'fernanda@yahoo.com'});
+    await User.create({name:'maria', email:'maria@yahoo.com'});
     return res.status(200).json({success: 'cadstrado'});
 });
 
