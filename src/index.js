@@ -48,7 +48,10 @@ app.get('/pagar/:id', async (req, res) => {
    }
 
    try {
-        var pagamento = await MercadoPago.preferences.create(dados);
+        if(users) {
+            var pagamento = await MercadoPago.preferences.create(dados);
+        }
+        
         await Payment.create({id_payment: idUser, pagador:email});
         return res.redirect(pagamento.body.init_point);
    }catch(err) {
@@ -65,14 +68,15 @@ app.post('/noti', async (req, res) => {
     var filtro = {  
         "order.id" : id
     }
-    const payment = await MercadoPago.payment.search({
+    const pags = await MercadoPago.payment.search({
         qs: filtro
     });
-    let pagamento = payment.body.result[0];
+    
+    let pagamento = pags.body.result[0];
     if(pagamento !== undefined) {
         if(pagamento.status === 'approved') {
-            await Payment.update({status:'approved'}, {where: { id_payment:id }});
-            await User.update({payment:true}, { where: { id } });
+            await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
+            await User.findByIdAndUpdate(id, { status:true });
             console.log('pagamento approvado')
         }
     }
