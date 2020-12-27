@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/pagar/:id', async (req, res) => {
+    const { id } = req.params;
     // pagamentos 
     // id // codigo // pagados // status
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
