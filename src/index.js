@@ -72,7 +72,9 @@ app.post('/noti', (req, res) => {
            if(pagamento !== undefined) {
                if(pagamento.status === 'approved') {
                    Payment.findOneAndUpdate({codigo:  pagamento.external_reference }, { status:'approved' }, {new:true}).then((dados) => {
-                        console.log(dados);
+                       User.updateOne({id: dados.id_payment}, { payment:true }).then((stado) => {
+                           console.log('Usuario desbloqueado ');
+                       });
                    });
                    
                    console.log('atualizado')
