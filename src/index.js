@@ -71,8 +71,9 @@ app.post('/noti', async (req, res) => {
     const pags = await MercadoPago.payment.search({
         qs: filtro
     });
-    
-    let pagamento = pags.body.result[0];
+
+
+    let pagamento = pags.body.results[0];
     if(pagamento !== undefined) {
         if(pagamento.status === 'approved') {
             await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
