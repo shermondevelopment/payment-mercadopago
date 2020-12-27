@@ -47,7 +47,7 @@ app.get('/pagar/:id', async (req, res) => {
 
    try {
         var pagamento = await MercadoPago.preferences.create(dados);
-        await Payment.create({id_payment: id, pagador:email});
+        await Payment.create({id_payment: idUser, pagador:email});
         return res.redirect(pagamento.body.init_point);
    }catch(err) {
        return res.send(err.message);
