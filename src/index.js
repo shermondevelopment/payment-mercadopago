@@ -74,6 +74,7 @@ app.post('/noti', async (req, res) => {
 
 
     let pagamento = pags.body.results[0];
+    console.log(pagamento);
     if(pagamento !== undefined) {
         if(pagamento.status === 'approved') {
             await Payment.findByIdAndUpdate({id_payment: id}, { status: 'approved' });
