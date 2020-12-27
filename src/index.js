@@ -11,7 +11,7 @@ MercadoPago.configure({
 });
 
 app.get('/user', async (req, res) => {
-    await User.create({name:'victor', email:'victor804.gt@gmail.com'});
+    await User.create({name:'fernanda', email:'fernanda@yahoo.com'});
     return res.status(200).json({success: 'cadstrado'});
 });
 
@@ -19,13 +19,14 @@ app.get('/', (req, res) => {
     res.send('Olá Mundo');
 });
 
-app.get('/pagar', async (req, res) => {
+app.get('/pagar/:id', async (req, res) => {
     // pagamentos 
     // id // codigo // pagados // status
     // 1 // 34092840289042 // pagador // idUsuario // não foi pago
     // 2 // 90459043959439 // pagado //  idUsuario // foi pago
-var id = uuidv4();
-var email = 'victor804.gt@gmail.com';
+    const  users = await User.findOne({where: { id }});
+    var id = users.id;
+    var email = users.email;
 
    let dados = {
        items: [
@@ -54,32 +55,43 @@ var email = 'victor804.gt@gmail.com';
   
 });
 
-app.post('/noti', (req, res) => {
+app.post('/noti', async (req, res) => {
    const { id } = req.query;
    console.log(id)
    setTimeout(() => {
     var filtro = {  
         "order.id" : id
     }
-    MercadoPago.payment.search({
+    const payment = await MercadoPago.payment.search({
         qs: filtro
-    }).then(data=> {
-        let traba = data.body.results[1];
-        let pagamento = data.body.results[0];
-        console.log(traba);
-        console.log(pagamento);
-        if(pagamento !== undefined) {
-            if(pagamento.status === 'approved') {
-                Payment.update({status: 'approved'}, { where: {id_payment: id} }).then((result) => {
-                    console.log('atualizado');
-                })
-            }
-        } else {
-            console.log('pagamento invalido');
+    });
+    let pagamento = payment.body.result[0];
+    if(pagamento !== undefined) {
+        if(pagamento.status === 'approved') {
+            await Payment.update({status:'approved'}, {where: { id_payment:id }});
+            await User.update({payment:true}, { where: { id } });
+            console.log('pagamento approvado')
         }
-    }).catch(err=> {
-      console.log(err);
-    })
+    }
+    // MercadoPago.payment.search({
+    //     qs: filtro
+    // }).then(data=> {
+    //     let traba = data.body.results[1];
+    //     let pagamento = data.body.results[0];
+    //     console.log(traba);
+    //     console.log(pagamento);
+    //     if(pagamento !== undefined) {
+    //         if(pagamento.status === 'approved') {
+    //             Payment.update({status: 'approved'}, { where: {id_payment: id} }).then((result) => {
+    //                 console.log('atualizado');
+    //             })
+    //         }
+    //     } else {
+    //         console.log('pagamento invalido');
+    //     }
+    // }).catch(err=> {
+    //   console.log(err);
+    // })
    }, 20000);
    return res.status(200).send('ok');
 });
