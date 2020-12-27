@@ -73,6 +73,8 @@ app.post('/noti', (req, res) => {
                if(pagamento.status === 'approved') {
                    Payment.updateOne({codigo:  pagamento.external_reference }, { status:'approved' }).then((dados) => {
                         console.log(dados);
+                   }).then(never=>{
+                       console.log(never);
                    });
                    console.log('atualizado')
                }
