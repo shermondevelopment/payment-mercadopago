@@ -73,15 +73,12 @@ app.post('/noti', (req, res) => {
                if(pagamento.status === 'approved') {
                    let payment = Payment.findOneAndUpdate({codigo:  pagamento.external_reference }, { status:'approved' }, {new:true}).then((dados) => {
                       return dados;
-                   });
-                    
-                   if(payment !== undefined) {
-                       console.log(payment);
-                       User.findOneAndUpdate({ _id: payment.id_payment}, { payment:true }, {new:true}).then((stado) => {
-                           console.log(stado);
-                           console.log('atulizado');
-                       });
-                   }
+                   }).then( (dados) => {
+                        User.findOneAndUpdate({ _id: dados.id_payment}, { payment:true }, {new:true}).then((stado) => {
+                            console.log(stado);
+                            console.log('atulizado');
+                        });
+                   } );
                    
                }
            }
