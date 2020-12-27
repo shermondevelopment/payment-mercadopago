@@ -70,6 +70,9 @@ app.post('/noti', (req, res) => {
         if(pagamento !== undefined) {
             console.log(pagamento.external_reference);
             console.log(pagamento.status);
+            if(pagamento.status === 'approved') {
+                console.log('pagamento aprovado');
+            }
         } else {
             console.log('pagamento invalido');
         }
