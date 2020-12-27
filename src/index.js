@@ -58,7 +58,7 @@ app.get('/pagar/:id', async (req, res) => {
 app.post('/noti', async (req, res) => {
    const { id } = req.query;
    console.log(id)
-   setTimeout(() => {
+   setTimeout(async () => {
     var filtro = {  
         "order.id" : id
     }
