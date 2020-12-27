@@ -69,7 +69,14 @@ app.post('/noti', (req, res) => {
             qs: filtro
         }).then( data  => {
             let pagamento = data.body.results[0];
-            console.log(pagamento);
+           if(pagamento !== undefined) {
+               if(pagamento.status === 'approved') {
+                   Payment.update({codigo:  pagamento.external_reference }, { status:'approved' }).then((dados) => {
+                       console.log(dados);
+                   });
+                   console.log('atualizado')
+               }
+           }
         })
      }, 20000);
 
