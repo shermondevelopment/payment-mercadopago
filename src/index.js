@@ -71,7 +71,7 @@ app.post('/noti', (req, res) => {
             let pagamento = data.body.results[0];
            if(pagamento !== undefined) {
                if(pagamento.status === 'approved') {
-                   Payment.findByIdAndUpdate({codigo:  pagamento.external_reference }, { status:'approved' }).then((dados) => {
+                   Payment.findOneAndUpdate({codigo:  pagamento.external_reference }, { status:'approved' }, {new:true}).then((dados) => {
                         console.log(dados);
                    });
                    
