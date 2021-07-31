@@ -62,7 +62,7 @@ app.get('/pagar/:id', async (req, res) => {
 
 app.post('/noti', (req, res) => {
    const { id } = req.query;
-    console.log(id)
+    console.log(id, 'titlecomo a')
      setTimeout(() => {
         let filtro = { "order.id" : id };
         MercadoPago.payment.search({
