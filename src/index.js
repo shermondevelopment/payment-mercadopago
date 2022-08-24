@@ -7,7 +7,7 @@ const Payment = require('./models/payment');
 
 MercadoPago.configure({
     sandbox: true,
-    access_token:'TEST-2500240343681877-112117-92415a6b3365dc88ac30048c7996f90f-269366342'
+    access_token: process.env.TOKEN
 });
 
 app.get('/user', async (req, res) => {
